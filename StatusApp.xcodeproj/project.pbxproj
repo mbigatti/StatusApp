@@ -8,11 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		504239EE19D2B53D00EB55AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504239ED19D2B53D00EB55AF /* AppDelegate.swift */; };
-		504239F019D2B53D00EB55AF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504239EF19D2B53D00EB55AF /* ViewController.swift */; };
 		504239F319D2B53D00EB55AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504239F119D2B53D00EB55AF /* Main.storyboard */; };
 		504239F519D2B53D00EB55AF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 504239F419D2B53D00EB55AF /* Images.xcassets */; };
 		504239F819D2B53D00EB55AF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 504239F619D2B53D00EB55AF /* LaunchScreen.xib */; };
 		50423A0419D2B53D00EB55AF /* StatusAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50423A0319D2B53D00EB55AF /* StatusAppTests.swift */; };
+		50423A0E19D2B65000EB55AF /* StatusEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50423A0D19D2B65000EB55AF /* StatusEntity.swift */; };
+		50423A1419D2B6D400EB55AF /* StatusListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50423A1319D2B6D400EB55AF /* StatusListViewController.swift */; };
+		50423A1619D2B7B400EB55AF /* StatusListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50423A1519D2B7B400EB55AF /* StatusListViewCell.swift */; };
+		5086FA9819D318540044A599 /* StatusDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5086FA9719D318540044A599 /* StatusDetailViewController.swift */; };
+		5086FA9B19D31D4C0044A599 /* UIColor+RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5086FA9919D31D4C0044A599 /* UIColor+RGB.swift */; };
+		5086FA9E19D320990044A599 /* StatusEntityColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5086FA9D19D320990044A599 /* StatusEntityColor.swift */; };
+		5086FAA019D419F70044A599 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5086FA9F19D419F70044A599 /* GradientView.swift */; };
+		5086FAA219D41F030044A599 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5086FAA119D41F030044A599 /* Buttons.swift */; };
+		5086FAA419D425E90044A599 /* StatusEntityDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5086FAA319D425E90044A599 /* StatusEntityDatabase.swift */; };
+		5086FAA619D450AA0044A599 /* ColorButtonsControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5086FAA519D450AA0044A599 /* ColorButtonsControl.swift */; };
+		5086FAA819D465A60044A599 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5086FAA719D465A60044A599 /* QuartzCore.framework */; };
+		5086FAAB19D54A930044A599 /* UnderlinedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5086FAAA19D54A930044A599 /* UnderlinedTextView.swift */; };
+		5086FAAD19D58B770044A599 /* AddEntryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5086FAAC19D58B770044A599 /* AddEntryButton.swift */; };
+		5086FAB019D5A18B0044A599 /* UITextView+CalculateHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 5086FAAF19D5A18B0044A599 /* UITextView+CalculateHeight.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,13 +42,28 @@
 		504239E819D2B53D00EB55AF /* StatusApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StatusApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		504239EC19D2B53D00EB55AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		504239ED19D2B53D00EB55AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		504239EF19D2B53D00EB55AF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		504239F219D2B53D00EB55AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		504239F419D2B53D00EB55AF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		504239F719D2B53D00EB55AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		504239FD19D2B53D00EB55AF /* StatusAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StatusAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		50423A0219D2B53D00EB55AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50423A0319D2B53D00EB55AF /* StatusAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusAppTests.swift; sourceTree = "<group>"; };
+		50423A0D19D2B65000EB55AF /* StatusEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusEntity.swift; sourceTree = "<group>"; };
+		50423A1319D2B6D400EB55AF /* StatusListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusListViewController.swift; sourceTree = "<group>"; };
+		50423A1519D2B7B400EB55AF /* StatusListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusListViewCell.swift; sourceTree = "<group>"; };
+		5086FA9719D318540044A599 /* StatusDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusDetailViewController.swift; sourceTree = "<group>"; };
+		5086FA9919D31D4C0044A599 /* UIColor+RGB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+RGB.swift"; sourceTree = "<group>"; };
+		5086FA9D19D320990044A599 /* StatusEntityColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusEntityColor.swift; sourceTree = "<group>"; };
+		5086FA9F19D419F70044A599 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		5086FAA119D41F030044A599 /* Buttons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
+		5086FAA319D425E90044A599 /* StatusEntityDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusEntityDatabase.swift; sourceTree = "<group>"; };
+		5086FAA519D450AA0044A599 /* ColorButtonsControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorButtonsControl.swift; sourceTree = "<group>"; };
+		5086FAA719D465A60044A599 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		5086FAAA19D54A930044A599 /* UnderlinedTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderlinedTextView.swift; sourceTree = "<group>"; };
+		5086FAAC19D58B770044A599 /* AddEntryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEntryButton.swift; sourceTree = "<group>"; };
+		5086FAAE19D5A18B0044A599 /* UITextView+CalculateHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+CalculateHeight.h"; sourceTree = "<group>"; };
+		5086FAAF19D5A18B0044A599 /* UITextView+CalculateHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+CalculateHeight.m"; sourceTree = "<group>"; };
+		5086FAB419D5A2690044A599 /* StatusApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StatusApp-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5086FAA819D465A60044A599 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				504239EA19D2B53D00EB55AF /* StatusApp */,
+				5086FAA919D465B40044A599 /* Frameworks */,
 				50423A0019D2B53D00EB55AF /* StatusAppTests */,
 				504239E919D2B53D00EB55AF /* Products */,
 			);
@@ -77,12 +107,26 @@
 		504239EA19D2B53D00EB55AF /* StatusApp */ = {
 			isa = PBXGroup;
 			children = (
+				5086FAAC19D58B770044A599 /* AddEntryButton.swift */,
 				504239ED19D2B53D00EB55AF /* AppDelegate.swift */,
-				504239EF19D2B53D00EB55AF /* ViewController.swift */,
-				504239F119D2B53D00EB55AF /* Main.storyboard */,
+				5086FAA119D41F030044A599 /* Buttons.swift */,
+				5086FAA519D450AA0044A599 /* ColorButtonsControl.swift */,
+				5086FA9F19D419F70044A599 /* GradientView.swift */,
 				504239F419D2B53D00EB55AF /* Images.xcassets */,
 				504239F619D2B53D00EB55AF /* LaunchScreen.xib */,
+				504239F119D2B53D00EB55AF /* Main.storyboard */,
+				5086FA9719D318540044A599 /* StatusDetailViewController.swift */,
+				50423A0D19D2B65000EB55AF /* StatusEntity.swift */,
+				5086FA9D19D320990044A599 /* StatusEntityColor.swift */,
+				5086FAA319D425E90044A599 /* StatusEntityDatabase.swift */,
+				50423A1519D2B7B400EB55AF /* StatusListViewCell.swift */,
+				50423A1319D2B6D400EB55AF /* StatusListViewController.swift */,
 				504239EB19D2B53D00EB55AF /* Supporting Files */,
+				5086FA9919D31D4C0044A599 /* UIColor+RGB.swift */,
+				5086FAAE19D5A18B0044A599 /* UITextView+CalculateHeight.h */,
+				5086FAAF19D5A18B0044A599 /* UITextView+CalculateHeight.m */,
+				5086FAAA19D54A930044A599 /* UnderlinedTextView.swift */,
+				5086FAB419D5A2690044A599 /* StatusApp-Bridging-Header.h */,
 			);
 			path = StatusApp;
 			sourceTree = "<group>";
@@ -110,6 +154,15 @@
 				50423A0219D2B53D00EB55AF /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5086FAA919D465B40044A599 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5086FAA719D465A60044A599 /* QuartzCore.framework */,
+			);
+			name = Frameworks;
+			path = StatusApp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,8 +265,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				504239F019D2B53D00EB55AF /* ViewController.swift in Sources */,
+				5086FAA219D41F030044A599 /* Buttons.swift in Sources */,
+				5086FA9819D318540044A599 /* StatusDetailViewController.swift in Sources */,
+				5086FA9B19D31D4C0044A599 /* UIColor+RGB.swift in Sources */,
+				5086FAA619D450AA0044A599 /* ColorButtonsControl.swift in Sources */,
+				50423A1419D2B6D400EB55AF /* StatusListViewController.swift in Sources */,
+				5086FAB019D5A18B0044A599 /* UITextView+CalculateHeight.m in Sources */,
+				5086FAAB19D54A930044A599 /* UnderlinedTextView.swift in Sources */,
+				50423A0E19D2B65000EB55AF /* StatusEntity.swift in Sources */,
+				50423A1619D2B7B400EB55AF /* StatusListViewCell.swift in Sources */,
 				504239EE19D2B53D00EB55AF /* AppDelegate.swift in Sources */,
+				5086FAA019D419F70044A599 /* GradientView.swift in Sources */,
+				5086FA9E19D320990044A599 /* StatusEntityColor.swift in Sources */,
+				5086FAA419D425E90044A599 /* StatusEntityDatabase.swift in Sources */,
+				5086FAAD19D58B770044A599 /* AddEntryButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,8 +402,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = StatusApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "StatusApp/StatusApp-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -347,8 +414,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = StatusApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "StatusApp/StatusApp-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -405,6 +474,7 @@
 				50423A0919D2B53D00EB55AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		50423A0A19D2B53D00EB55AF /* Build configuration list for PBXNativeTarget "StatusAppTests" */ = {
 			isa = XCConfigurationList;
@@ -413,6 +483,7 @@
 				50423A0C19D2B53D00EB55AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
