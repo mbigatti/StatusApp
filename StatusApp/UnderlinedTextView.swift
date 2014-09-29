@@ -9,11 +9,15 @@
 import UIKit
 import QuartzCore
 
+/**
+ Controls that embeds an UITextView and supports highlighting and auto-growth
+ */
 class UnderlinedTextView : UIControl, UITextViewDelegate
 {
     
     // MARK: - Public Properties
     
+    /// current text
     var text : String {
         get {
             return textView.text
@@ -23,14 +27,17 @@ class UnderlinedTextView : UIControl, UITextViewDelegate
         }
     }
     
+    /// reference to associated label
     @IBOutlet var associatedLabel : UILabel?
     
+    /// active color, used to highlight the text view and associated label when the control is selected
     var activeColor : UIColor = UIColor.whiteColor() {
         didSet {
             updateActiveColor()
         }
     }
     
+    /// calculated control height, used by the containing view controller to adjust the layout of the view
     var calculatedHeight : CGFloat {
         get {
             return textView.calculatedHeight()
@@ -40,10 +47,16 @@ class UnderlinedTextView : UIControl, UITextViewDelegate
     
     // MARK: - Private Properties
     
+    /// internal `UITextView`
     private var textView = UITextView()
+    
+    /// layer used to display the text field underline
     private let underlineLayer = CALayer()
     
+    /// underline height when the text view have focus
     private let underlineHighlightedHeight : CGFloat = 2
+    
+    // underline height when the text view does not have focus
     private let underlineNormalHeight : CGFloat = 1
 
     
@@ -93,6 +106,16 @@ class UnderlinedTextView : UIControl, UITextViewDelegate
         updateActiveColor()
     }
     
+    /// forward focus management to internal `UITextView`
+    override func becomeFirstResponder() -> Bool {
+        return textView.becomeFirstResponder()
+    }
+    
+    /// forward focus management to internal `UITextView`
+    override func resignFirstResponder() -> Bool {
+        return textView.resignFirstResponder()
+    }
+    
     
     // MARK: - UITextViewDelegate
     
@@ -111,6 +134,7 @@ class UnderlinedTextView : UIControl, UITextViewDelegate
     
     // MARK: - Privates
     
+    /// updates the color of the underline and associated label with the correct color
     func updateActiveColor() {
         let color = textView.isFirstResponder() ? activeColor : UIColor.blackColor().colorWithAlphaComponent(0.5)
         underlineLayer.backgroundColor = color.CGColor

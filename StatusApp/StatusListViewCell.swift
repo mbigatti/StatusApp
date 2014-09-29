@@ -8,11 +8,21 @@
 
 import UIKit
 
+/**
+ Status Entry cell
+ */
 class StatusListViewCell: UITableViewCell {
-    @IBOutlet private var titleLabel: UILabel?
-    @IBOutlet private var notesLabel: UILabel?
-    @IBOutlet private var lastUpdatedLabel: UILabel?
     
+    /// reference to title label
+    @IBOutlet private var titleLabel: UILabel?
+    
+    /// reference to notes label
+    @IBOutlet private var notesLabel: UILabel?
+    
+    /// reference to last update timestamp label
+    @IBOutlet private var lastUpdatedLabel: UILabel?
+
+    /// formatted used to populate the last update timestamp label
     private var dateFormatter = NSDateFormatter()
     
     required init(coder aDecoder: NSCoder) {
@@ -25,6 +35,7 @@ class StatusListViewCell: UITableViewCell {
         commonInit();
     }
     
+    /// common initializer
     private func commonInit() {
         let currentLocale = NSLocale.currentLocale()
         
@@ -36,6 +47,10 @@ class StatusListViewCell: UITableViewCell {
         selectedBackgroundView = GradientView()
     }
     
+    /**
+     Configure the cell for the specified entry.
+     :param: statsEntry entry to use to configure the cell
+     */
     func configureForStatusEntity(statusEntity: StatusEntity) {
         titleLabel!.text = statusEntity.title
         notesLabel!.text = statusEntity.notes

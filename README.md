@@ -12,18 +12,19 @@ In the detail view user can choose entry color in a palette of five predefined c
 ## Technologies
 Brief list of technologies and API used in the source code:
 
-- empty state manager with custom `UITableViewDataSource` and `UITableViewCell`;
-- dynamic table view row height;
-- row deletion using `UITableViewDelegate`;
-- custom components inspectable in Interface Builder;
-- custom components with Core Graphics drawing;
-- Core Graphics gradients;
-- custom `UITextView` for data entry;
-- auto-growing `UITextView`;
-- Core Animation;
-- swift enum;
-- mix and match with Objective-C code;
-
+- storyboard based project
+- xib for launch screen
+- automatic dynamic `UITableView` row height
+- empty state manager with specific `UITableViewDataSource`
+- custom `UITableViewCell`
+- row deletion using `UITableViewDelegate`
+- custom components inspectable in Interface Builder
+- custom component with Core Graphics drawing
+- custom component with Core Graphics gradients
+- custom auto-growing `UITextView` for data entry
+- view background color fading with Core Animation
+- `NSKeyedArchiver` and `NSKeyedUnarchiver`
+- mix and match with Objective-C code
 
 ### Contact
 [http://bigatti.it](http://bigatti.it)  

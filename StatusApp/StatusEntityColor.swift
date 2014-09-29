@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ Colors supported by the app
+ */
 enum StatusEntityColor : Int {
     case AZURE
     case GREEN
@@ -15,6 +18,7 @@ enum StatusEntityColor : Int {
     case RED
     case MAGENTA
     
+    /// array of supported colors
     static let colors = [
         RED:        UIColor.colorWithRGB(0xE86751),
         AZURE:      UIColor.colorWithRGB(0x3AEBFF),
@@ -23,6 +27,9 @@ enum StatusEntityColor : Int {
         MAGENTA:    UIColor.colorWithRGB(0xCA5FFF),
     ]
     
+    /**
+     :returns: `UIColor` associated to this color
+    */
     func color() -> UIColor {
         if let color = StatusEntityColor.colors[self] {
             return color

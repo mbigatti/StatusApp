@@ -8,33 +8,47 @@
 
 import UIKit
 
+/**
+ Status Main View Controller
+ */
 class StatusListViewController: UITableViewController {
+    /// entity database reference
     let entityDatabase = StatusEntityDatabase.sharedInstance
     
+    /// data source used when no data is present
     let emptyDataSource = EmtpyStatusListDataSource()
+    
+    /// data source used when at least one entry is present
     let normalDataSource = NormalStatusListDataSource()
+    
+    /// current data source
     var currentDataSource : UITableViewDataSource!
     
+
     // MARK: - UIViewController
     
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
     
-    // required to correctly size cells when exit segue from detail view
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // this is required to avoid strange row height change on rotation or view appear
+        tableView.estimatedRowHeight = 60
+        
         determineCurrentDataSource()
-        tableView.reloadData()
-    }
-    
-    // required to correctly size cells when exit segue from detail view
-    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+        
+        // required to correctly size cells when exit segue from detail view
         tableView.reloadData()
     }
     
     
     // MARK: - Actions
-    
+
+    /**
+     Add button was tapped
+     */
     @IBAction func addButtonTapped(sender: AnyObject) {
         performSegueWithIdentifier("showDetail", sender: sender)
     }
@@ -53,18 +67,8 @@ class StatusListViewController: UITableViewController {
     
     // MARK: - UITableViewDelegate
     
-    /*
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.isAddRow() {
-            return 80;
-        } else {
-            return UITableViewAutomaticDimension;
-        }
-    }
-    */
-    
     override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        return indexPath.isEntityRow() ? indexPath : nil
+        return indexPath.isEntityIndexPath() ? indexPath : nil
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -72,31 +76,36 @@ class StatusListViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return indexPath.isEntityRow()
+        return indexPath.isEntityIndexPath()
     }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        //
+        // delete the entry
+        //
         if editingStyle == .Delete {
             entityDatabase.removeEntityAtIndex(indexPath.row)
             entityDatabase.synchronize()
-            
+          
+            // update table
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Left)
             
+            // update current data source
             determineCurrentDataSource()
         }
     }
+    
     
     // MARK: - Segues
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showDetail" {
             let destinationController = segue.destinationViewController as StatusDetailViewController
-            
+
+            // editing an existent item
             if sender is NSIndexPath {
                 let indexPath = sender as NSIndexPath
-                destinationController.statusEntity = entityDatabase.entities[indexPath.row]
-            } else {
-                // add new
+                destinationController.currentStatusEntity = entityDatabase.entities[indexPath.row]
             }
         }
     }
@@ -104,7 +113,11 @@ class StatusListViewController: UITableViewController {
     
     // MARK - Privates
     
-    func determineCurrentDataSource() {
+    /**
+     Update the currentDataSource property with correct data source (normal or empty). If the data source
+     changed, reload the table view data to update the display.
+     */
+    private func determineCurrentDataSource() {
         let newDataSource : UITableViewDataSource = entityDatabase.entities.count == 0 ? emptyDataSource : normalDataSource
         if newDataSource !== currentDataSource {
             currentDataSource = newDataSource
@@ -117,6 +130,9 @@ class StatusListViewController: UITableViewController {
 
 // MARK: - EmtpyStatusListDataSource
 
+/**
+`UITableViewDataSource` that provide placeholder content and an Add button (empty state)
+*/
 class EmtpyStatusListDataSource : NSObject, UITableViewDataSource
 {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -134,6 +150,9 @@ class EmtpyStatusListDataSource : NSObject, UITableViewDataSource
 
 // MARK: - NormalStatusListDataSource
 
+/**
+ `UITableViewDataSource` that provide access to the contents of the `StatusEntityDatabase` and an Add button.
+ */
 class NormalStatusListDataSource : NSObject, UITableViewDataSource
 {
     let entityDatabase = StatusEntityDatabase.sharedInstance
@@ -143,7 +162,7 @@ class NormalStatusListDataSource : NSObject, UITableViewDataSource
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.isAddRow() {
+        if indexPath.isAddEntityIndexPath() {
             let cell = tableView.dequeueReusableCellWithIdentifier("StatusListAddCell") as UITableViewCell
             cell.selectionStyle = .None
             return cell
@@ -163,14 +182,19 @@ class NormalStatusListDataSource : NSObject, UITableViewDataSource
 
 // MARK: - NSIndexPath utility extension
 
+/**
+ Utility extension
+ */
 extension NSIndexPath {
     
-    func isEntityRow() -> Bool {
+    /// :returns: `true` if the `indexPath` represent a normal entity
+    func isEntityIndexPath() -> Bool {
         return self.row != StatusEntityDatabase.sharedInstance.entities.count
     }
     
-    func isAddRow() -> Bool {
-        return !isEntityRow()
+    /// :returns: `true` if the `indexPath` represent the add button cell
+    func isAddEntityIndexPath() -> Bool {
+        return !isEntityIndexPath()
     }
     
 }

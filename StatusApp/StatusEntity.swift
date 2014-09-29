@@ -8,28 +8,43 @@
 
 import Foundation
 
+/**
+Entry entity. Each entry is defined by:
+- a title
+- free text note
+- a color
+- last updated date
+ */
 class StatusEntity : NSObject, NSCoding
 {
+    /// entry title
     var title : String {
         didSet {
             lastUpdateDate = NSDate()
         }
     }
     
+    /// entry notes
     var notes : String {
         didSet {
             lastUpdateDate = NSDate()
         }
     }
-    
-    private(set) var lastUpdateDate : NSDate
-    
+
+    /// entry color
     var color : StatusEntityColor {
         didSet {
             lastUpdateDate = NSDate()
         }
     }
     
+    /// readonly last updated timestamp
+    private(set) var lastUpdateDate : NSDate
+    
+    /**
+     Inits an entry (required by `NSKeyedUnarchiver`)
+    :param: coder an `NSCoder` object
+    */
     required init(coder aDecoder: NSCoder) {
         title = aDecoder.decodeObjectForKey("title") as String
         notes = aDecoder.decodeObjectForKey("notes") as String

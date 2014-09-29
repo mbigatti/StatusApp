@@ -107,26 +107,20 @@
 		504239EA19D2B53D00EB55AF /* StatusApp */ = {
 			isa = PBXGroup;
 			children = (
-				5086FAAC19D58B770044A599 /* AddEntryButton.swift */,
 				504239ED19D2B53D00EB55AF /* AppDelegate.swift */,
-				5086FAA119D41F030044A599 /* Buttons.swift */,
-				5086FAA519D450AA0044A599 /* ColorButtonsControl.swift */,
-				5086FA9F19D419F70044A599 /* GradientView.swift */,
+				5086FAB619D946670044A599 /* Categories */,
 				504239F419D2B53D00EB55AF /* Images.xcassets */,
 				504239F619D2B53D00EB55AF /* LaunchScreen.xib */,
 				504239F119D2B53D00EB55AF /* Main.storyboard */,
-				5086FA9719D318540044A599 /* StatusDetailViewController.swift */,
 				50423A0D19D2B65000EB55AF /* StatusEntity.swift */,
 				5086FA9D19D320990044A599 /* StatusEntityColor.swift */,
 				5086FAA319D425E90044A599 /* StatusEntityDatabase.swift */,
 				50423A1519D2B7B400EB55AF /* StatusListViewCell.swift */,
 				50423A1319D2B6D400EB55AF /* StatusListViewController.swift */,
+				5086FA9719D318540044A599 /* StatusDetailViewController.swift */,
 				504239EB19D2B53D00EB55AF /* Supporting Files */,
-				5086FA9919D31D4C0044A599 /* UIColor+RGB.swift */,
-				5086FAAE19D5A18B0044A599 /* UITextView+CalculateHeight.h */,
-				5086FAAF19D5A18B0044A599 /* UITextView+CalculateHeight.m */,
-				5086FAAA19D54A930044A599 /* UnderlinedTextView.swift */,
-				5086FAB419D5A2690044A599 /* StatusApp-Bridging-Header.h */,
+				5086FAB519D946500044A599 /* UI Components */,
+				5086FAB719D957020044A599 /* UI Components (external) */,
 			);
 			path = StatusApp;
 			sourceTree = "<group>";
@@ -163,6 +157,36 @@
 			);
 			name = Frameworks;
 			path = StatusApp;
+			sourceTree = "<group>";
+		};
+		5086FAB519D946500044A599 /* UI Components */ = {
+			isa = PBXGroup;
+			children = (
+				5086FAAC19D58B770044A599 /* AddEntryButton.swift */,
+				5086FAA519D450AA0044A599 /* ColorButtonsControl.swift */,
+				5086FAAA19D54A930044A599 /* UnderlinedTextView.swift */,
+			);
+			name = "UI Components";
+			sourceTree = "<group>";
+		};
+		5086FAB619D946670044A599 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				5086FA9919D31D4C0044A599 /* UIColor+RGB.swift */,
+				5086FAAE19D5A18B0044A599 /* UITextView+CalculateHeight.h */,
+				5086FAAF19D5A18B0044A599 /* UITextView+CalculateHeight.m */,
+				5086FAB419D5A2690044A599 /* StatusApp-Bridging-Header.h */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		5086FAB719D957020044A599 /* UI Components (external) */ = {
+			isa = PBXGroup;
+			children = (
+				5086FAA119D41F030044A599 /* Buttons.swift */,
+				5086FA9F19D419F70044A599 /* GradientView.swift */,
+			);
+			name = "UI Components (external)";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

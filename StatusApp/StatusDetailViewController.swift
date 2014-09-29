@@ -9,19 +9,34 @@
 import UIKit
 import QuartzCore
 
+/**
+ Status Detail View Controller
+ */
 class StatusDetailViewController : UIViewController {
     
     // MARK: - Properties
     
+    /// reference to the entities database
     let entityDatabase = StatusEntityDatabase.sharedInstance
-    var statusEntity : StatusEntity?
     
+    /// current entity entry
+    var currentStatusEntity : StatusEntity?
+    
+    /// reference to the title text view
     @IBOutlet private weak var titleTextView: UnderlinedTextView!
+    
+    /// reference to the notes text view
     @IBOutlet private weak var notesTextView: UnderlinedTextView!
+    
+    /// reference to the color button array control
     @IBOutlet private weak var colorButtonsControl: ColorButtonsControl!
+    
+    /// reference to the Done button
     @IBOutlet private weak var doneButton: UIButton!
     
+    /// reference to the notes text view height constraint, used to implement auto-growth
     @IBOutlet weak var notesTextViewHeightConstraint: NSLayoutConstraint!
+    
     
     // MARK: - UIViewController
     
@@ -36,6 +51,8 @@ class StatusDetailViewController : UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+
+        // FIXME: should be in the viewWillAppear callback method but it does not work when editing existing entries
         adjustTextViewHeight()
     }
     
@@ -46,44 +63,54 @@ class StatusDetailViewController : UIViewController {
     
     // MARK: - Actions
     
+    /// called when user changes color selection
     @IBAction func colorSelectionChanged(sender: UIControl) {
-        updateActiveColors()
+        updateActiveColor()
         changeBackgroundColor()
     }
     
+    /// called when title text view content changes
     @IBAction func titleTextViewChanged(sender: UnderlinedTextView) {
         validateForm()
     }
     
+    /// called when notes text view content changes
     @IBAction func notesTextViewChanged(sender: UnderlinedTextView) {
         adjustTextViewHeight()
     }
     
+    /// called when the user taps on the view
     @IBAction func viewTapped(sender: AnyObject) {
         titleTextView.resignFirstResponder()
         notesTextView.resignFirstResponder()
     }
     
+    /// called when the user taps on the Done button
     @IBAction func doneButtonTapped(sender: AnyObject) {
-        if let entity = statusEntity {
-            // update entity
+        if let entity = currentStatusEntity {
+            //
+            // update entity contents
+            //
             entity.title = titleTextView.text
             entity.notes = notesTextView.text
             entity.color = colorButtonsControl.currentColor
             
         } else {
+            //
             // create a new entity
+            //
             let entity = StatusEntity(title: titleTextView.text, notes: notesTextView.text, color: colorButtonsControl.currentColor)
             entityDatabase.addEntity(entity)
         }
         
-        // save data on disk
+        // save data in the archive file
         entityDatabase.synchronize()
         
         // dismiss controller
         dismissViewControllerAnimated(true, completion: nil)
     }
     
+    /// called when the user taps on the Cancel button
     @IBAction func cancelButtonTapped(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -91,8 +118,12 @@ class StatusDetailViewController : UIViewController {
     
     // MARK: - Privates
     
+    /**
+     Updates UI populating the text fields with current entity data and configuring the view background color.
+     If we're inserting a new entity, defaults to the `AZURE` background color.
+     */
     private func updateUI() {
-        if let entity = statusEntity {
+        if let entity = currentStatusEntity {
             titleTextView.text = entity.title
             notesTextView.text = entity.notes
             notesTextView.sizeToFit()
@@ -103,13 +134,19 @@ class StatusDetailViewController : UIViewController {
             view.backgroundColor = StatusEntityColor.AZURE.color()
         }
         
-        updateActiveColors()
+        updateActiveColor()
     }
     
+    /**
+     Updates notes text view height (auto-grown)
+     */
     private func adjustTextViewHeight() {
         notesTextViewHeightConstraint.constant = notesTextView.calculatedHeight
     }
     
+    /**
+     Validate the form and update the Done button `enabled` state. The form is considered valid if the title contains at least one character and it is not a whitespace or newline character.
+     */
     private func validateForm() {
         if let textView = titleTextView {
             let text = textView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
@@ -119,7 +156,10 @@ class StatusDetailViewController : UIViewController {
         }
     }
     
-    private func updateActiveColors() {
+    /**
+     Update form active color. This is a color that contrasts with the view background color and it is used to highligth the current text field.
+     */
+    private func updateActiveColor() {
         var activeColor : StatusEntityColor
         
         switch (colorButtonsControl.currentColor) {
@@ -139,6 +179,9 @@ class StatusDetailViewController : UIViewController {
         notesTextView.activeColor = activeColor.color()
     }
     
+    /**
+     Animate the change of the view background color to the current color in the `ColorButtonsControl` control.
+     */
     private func changeBackgroundColor() {
         let animation = CABasicAnimation(keyPath: "backgroundColor")
         
@@ -153,6 +196,7 @@ class StatusDetailViewController : UIViewController {
     
     // MARK : - CAAnimation Delegate
     
+    /// callback method sticks the view background color after the end of the animation
     override func animationDidStop(anim: CAAnimation!, finished flag: Bool) {
         self.view.layer.backgroundColor = colorButtonsControl.currentColor.color().CGColor
     }
