@@ -37,11 +37,18 @@ class StatusDetailViewController : UIViewController {
     /// reference to the notes text view height constraint, used to implement auto-growth
     @IBOutlet weak var notesTextViewHeightConstraint: NSLayoutConstraint!
     
+    /// current view translation on y axis
+    private var currentTranslationY : CGFloat = 0
+    
+    /// keyboard frame
+    private var keyboardEndFrame : CGRect?
     
     // MARK: - UIViewController
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        registerNotifications()
         
         updateUI()
         validateForm()
@@ -49,17 +56,50 @@ class StatusDetailViewController : UIViewController {
         titleTextView.becomeFirstResponder()
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
 
-        // FIXME: should be in the viewWillAppear callback method but it does not work when editing existing entries
-        adjustTextViewHeight()
+        hideKeyboard()
+    }
+
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        unregisterNotifications()
     }
     
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
+
+    /** 
+     This is required when editing existing items, to size the text view correctly. It is also called on rotation, but the height change is already correct by the viewWillTransitionToSize animation.
+     */
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        adjustTextViewHeight()
+    }
     
+    /**
+     Manage rotations adjusting notes text view height
+     */
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        
+        // compute current notes text view margins
+        let destinationTextViewWidth = size.width - (self.view.bounds.size.width - notesTextView.bounds.width)
+        
+        coordinator.animateAlongsideTransition({ (context: UIViewControllerTransitionCoordinatorContext!) in
+            //
+            // force size of notes text view to obtain the correct
+            let newSize = CGSize(width: destinationTextViewWidth, height: self.notesTextView.bounds.size.height)
+            self.notesTextView.frame = CGRect(origin: self.notesTextView.frame.origin, size: newSize)
+            
+            // adjust height and animate
+            self.adjustTextViewHeight()
+            self.view.setNeedsLayout()
+        }, completion: nil)
+    }
+
     
     // MARK: - Actions
     
@@ -81,8 +121,31 @@ class StatusDetailViewController : UIViewController {
     
     /// called when the user taps on the view
     @IBAction func viewTapped(sender: AnyObject) {
-        titleTextView.resignFirstResponder()
-        notesTextView.resignFirstResponder()
+        hideKeyboard()
+    }
+    
+    /// called when the user drag the view
+    @IBAction func viewPanned(sender: UIPanGestureRecognizer) {
+        let translation = sender.translationInView(view)
+        let newTranslationY = currentTranslationY + translation.y
+        
+        // does not scroll view up
+        if currentTranslationY + translation.y >= 0 {
+            return;
+        }
+        
+        // does not scroll past the keyboard
+        if -newTranslationY > keyboardEndFrame?.size.height {
+            return;
+        }
+    
+        if sender.state == UIGestureRecognizerState.Began || sender.state == UIGestureRecognizerState.Changed {
+            view.transform = CGAffineTransformMakeTranslation(0, newTranslationY)
+        }
+        
+        if sender.state == .Ended {
+            currentTranslationY = newTranslationY
+        }
     }
     
     /// called when the user taps on the Done button
@@ -115,6 +178,40 @@ class StatusDetailViewController : UIViewController {
         dismissViewControllerAnimated(true, completion: nil)
     }
 
+    
+    // MARK: - Notifications
+    
+    func registerNotifications() {
+        let nc = NSNotificationCenter.defaultCenter()
+        
+        nc.addObserver(self, selector: "keyboardDidShow:", name: UIKeyboardDidShowNotification, object: nil)
+        nc.addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func unregisterNotifications() {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    func keyboardDidShow(notification : NSNotification) {
+        let userInfo = notification.userInfo! as NSDictionary
+        keyboardEndFrame = userInfo.objectForKey(UIKeyboardFrameEndUserInfoKey)!.CGRectValue()
+    }
+    
+    /**
+     Called when the keyboard is hidden. In this case animate back in position the view if it is required
+     */
+    func keyboardWillHide(notification : NSNotification) {
+        keyboardEndFrame = nil
+        
+        let userInfo = notification.userInfo! as NSDictionary
+        let duration = userInfo.objectForKey(UIKeyboardAnimationDurationUserInfoKey)!.doubleValue
+        
+        UIView.animateWithDuration(duration) {
+            self.view.transform = CGAffineTransformIdentity
+            self.currentTranslationY = 0
+        }
+    }
+    
     
     // MARK: - Privates
     
@@ -154,6 +251,14 @@ class StatusDetailViewController : UIViewController {
             
             doneButton.enabled = valid
         }
+    }
+    
+    /**
+     Hide the keybaord (if present), resigning first responder on both input text views.
+     */
+    private func hideKeyboard() {
+        titleTextView.resignFirstResponder()
+        notesTextView.resignFirstResponder()
     }
     
     /**

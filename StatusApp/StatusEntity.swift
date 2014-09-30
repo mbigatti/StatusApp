@@ -17,6 +17,7 @@ Entry entity. Each entry is defined by:
  */
 class StatusEntity : NSObject, NSCoding
 {
+    
     /// entry title
     var title : String {
         didSet {

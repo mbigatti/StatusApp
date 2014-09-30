@@ -77,13 +77,18 @@ class UnderlinedTextView : UIControl, UITextViewDelegate
         layer.addSublayer(underlineLayer)
         
         textView.textColor = UIColor.whiteColor()
-        textView.backgroundColor = UIColor.clearColor()     // UIColor.blackColor().colorWithAlphaComponent(0.5)
+        textView.backgroundColor = UIColor.clearColor()
+        //textView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
         textView.tintColor = UIColor.whiteColor()
         textView.font = UIFont.systemFontOfSize(17)
-        textView.delegate = self
         textView.contentInset = UIEdgeInsets(top: -4, left: -4, bottom: 0, right: 0)
+        textView.scrollEnabled = false
+        textView.delegate = self
         
         addSubview(textView)
+        
+        // setup geometry of internal text view
+        layoutSubviews()
     }
     
     

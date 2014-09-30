@@ -11,7 +11,7 @@ import UIKit
 /**
  Status Main View Controller
  */
-class StatusListViewController: UITableViewController {
+class StatusListViewController: UITableViewController, UIViewControllerTransitioningDelegate {
     /// entity database reference
     let entityDatabase = StatusEntityDatabase.sharedInstance
     
@@ -23,6 +23,8 @@ class StatusListViewController: UITableViewController {
     
     /// current data source
     var currentDataSource : UITableViewDataSource!
+    
+    private var animationController = ZoomAnimatedController()
     
 
     // MARK: - UIViewController
@@ -96,11 +98,28 @@ class StatusListViewController: UITableViewController {
     }
     
     
+    // MARK: - UIViewControllerTransitioningDelegate
+    
+    func animationControllerForPresentedController(presented: UIViewController,
+        presentingController presenting: UIViewController,
+        sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning?
+    {
+        animationController.presenting = true
+        return animationController
+    }
+    
+    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        animationController.presenting = false
+        return animationController
+    }
+    
+    
     // MARK: - Segues
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showDetail" {
             let destinationController = segue.destinationViewController as StatusDetailViewController
+            destinationController.transitioningDelegate = self
 
             // editing an existent item
             if sender is NSIndexPath {

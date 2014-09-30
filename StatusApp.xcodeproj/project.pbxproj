@@ -26,6 +26,7 @@
 		5086FAAB19D54A930044A599 /* UnderlinedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5086FAAA19D54A930044A599 /* UnderlinedTextView.swift */; };
 		5086FAAD19D58B770044A599 /* AddEntryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5086FAAC19D58B770044A599 /* AddEntryButton.swift */; };
 		5086FAB019D5A18B0044A599 /* UITextView+CalculateHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 5086FAAF19D5A18B0044A599 /* UITextView+CalculateHeight.m */; };
+		50CDA7A619DABCAF005084DC /* ZoomAnimatedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDA7A519DABCAF005084DC /* ZoomAnimatedController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		5086FAAE19D5A18B0044A599 /* UITextView+CalculateHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+CalculateHeight.h"; sourceTree = "<group>"; };
 		5086FAAF19D5A18B0044A599 /* UITextView+CalculateHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+CalculateHeight.m"; sourceTree = "<group>"; };
 		5086FAB419D5A2690044A599 /* StatusApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StatusApp-Bridging-Header.h"; sourceTree = "<group>"; };
+		50CDA7A519DABCAF005084DC /* ZoomAnimatedController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomAnimatedController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 				504239EB19D2B53D00EB55AF /* Supporting Files */,
 				5086FAB519D946500044A599 /* UI Components */,
 				5086FAB719D957020044A599 /* UI Components (external) */,
+				50CDA7A519DABCAF005084DC /* ZoomAnimatedController.swift */,
 			);
 			path = StatusApp;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 				TargetAttributes = {
 					504239E719D2B53D00EB55AF = {
 						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = TE8H9CQ2ZM;
 					};
 					504239FC19D2B53D00EB55AF = {
 						CreatedOnToolsVersion = 6.0.1;
@@ -297,6 +301,7 @@
 				5086FAB019D5A18B0044A599 /* UITextView+CalculateHeight.m in Sources */,
 				5086FAAB19D54A930044A599 /* UnderlinedTextView.swift in Sources */,
 				50423A0E19D2B65000EB55AF /* StatusEntity.swift in Sources */,
+				50CDA7A619DABCAF005084DC /* ZoomAnimatedController.swift in Sources */,
 				50423A1619D2B7B400EB55AF /* StatusListViewCell.swift in Sources */,
 				504239EE19D2B53D00EB55AF /* AppDelegate.swift in Sources */,
 				5086FAA019D419F70044A599 /* GradientView.swift in Sources */,
@@ -425,10 +430,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = StatusApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "StatusApp/StatusApp-Bridging-Header.h";
 			};
 			name = Debug;
@@ -437,10 +445,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = StatusApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "StatusApp/StatusApp-Bridging-Header.h";
 			};
 			name = Release;
