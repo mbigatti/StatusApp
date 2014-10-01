@@ -303,7 +303,9 @@ class StatusDetailViewController : UIViewController {
     
     /// callback method sticks the view background color after the end of the animation
     override func animationDidStop(anim: CAAnimation!, finished flag: Bool) {
-        self.view.layer.backgroundColor = colorButtonsControl.currentColor.color().CGColor
+        if flag {
+            self.view.backgroundColor = colorButtonsControl.currentColor.color()
+        }
     }
     
 }

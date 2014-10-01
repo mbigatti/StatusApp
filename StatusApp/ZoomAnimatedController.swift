@@ -11,7 +11,7 @@ import Foundation
 class ZoomAnimatedController : NSObject, UIViewControllerAnimatedTransitioning
 {
     var presenting = true
-    var originFrame = CGRectZero
+    var animatingIndexPath : NSIndexPath?
     
     /// duration of the animation
     private let animationDuration : Double = 0.35
@@ -36,7 +36,13 @@ class ZoomAnimatedController : NSObject, UIViewControllerAnimatedTransitioning
         // configure the destination controller initial frame
         //
         let tableView = fromViewController.tableView
-        originFrame = tableView.rectForRowAtIndexPath(tableView.indexPathForSelectedRow()!)
+        animatingIndexPath = tableView.indexPathForSelectedRow()
+        if animatingIndexPath == nil {
+            let lastRow = tableView.dataSource!.tableView(tableView, numberOfRowsInSection: 0) - 1
+            animatingIndexPath = NSIndexPath(forRow: lastRow, inSection: 0)
+            toViewController.view.backgroundColor = UIColor.blackColor()
+        }
+        let originFrame = tableView.rectForRowAtIndexPath(animatingIndexPath!)
         toViewController.view.frame = originFrame
         
         //
@@ -48,6 +54,8 @@ class ZoomAnimatedController : NSObject, UIViewControllerAnimatedTransitioning
         //
         // perform animation
         //
+        tableView.cellForRowAtIndexPath(self.animatingIndexPath!)?.contentView.alpha = 0
+        
         UIView.animateWithDuration(self.transitionDuration(transitionContext), animations: { () -> Void in
             toViewController.view.frame = transitionContext.finalFrameForViewController(toViewController)
             
@@ -55,6 +63,7 @@ class ZoomAnimatedController : NSObject, UIViewControllerAnimatedTransitioning
             //
             // restore original properties and complete transition
             //
+            tableView.cellForRowAtIndexPath(self.animatingIndexPath!)?.contentView.alpha = 1
             toViewController.view.clipsToBounds = false
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
         }
@@ -69,17 +78,20 @@ class ZoomAnimatedController : NSObject, UIViewControllerAnimatedTransitioning
         
         fromViewController.view.clipsToBounds = true
         let tableView = toViewController.tableView
+        tableView.cellForRowAtIndexPath(self.animatingIndexPath!)?.contentView.alpha = 0
         
         //
         // perform animation
         //
         UIView.animateWithDuration(self.transitionDuration(transitionContext), animations: { () -> Void in
-            fromViewController.view.frame = CGRectInset(self.originFrame, 0, tableView.contentOffset.y)
+            let frame = tableView.rectForRowAtIndexPath(self.animatingIndexPath!)
+            fromViewController.view.frame = frame
             
         }) { (finished) -> Void in
             //
             // restore original properties and complete transition
             //
+            tableView.cellForRowAtIndexPath(self.animatingIndexPath!)?.contentView.alpha = 1
             fromViewController.view.clipsToBounds = false
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
         }
