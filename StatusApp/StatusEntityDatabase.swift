@@ -9,8 +9,8 @@
 import Foundation
 
 /**
- Contains of all the entries stored in the app. 
- The database is a simple `NSKeyedArchiver` file. The entities are returned orderder by title.
+    Contains of all the entries stored in the app.
+    The database is a simple `NSKeyedArchiver` file. The entities are returned orderder by title.
  */
 class StatusEntityDatabase {
     
@@ -35,7 +35,7 @@ class StatusEntityDatabase {
     }()
 
     /**
-     Private initializer. Inits the `databaseFilePath` property
+        Private initializer. Inits the `databaseFilePath` property
      */
     private init() {
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true) as [NSString]
@@ -46,8 +46,9 @@ class StatusEntityDatabase {
     }
     
     /**
-     Add an entity
-     :param: entity entity to be added
+        Add an entity
+    
+        :param: entity entity to be added
      */
     func addEntity(entity: StatusEntity) {
         entities.append(entity)
@@ -57,15 +58,16 @@ class StatusEntityDatabase {
     }
     
     /**
-     Removes the entity at specified index
-     :param: index index of entity to be removed
+        Removes the entity at specified index
+    
+        :param: index index of entity to be removed
      */
     func removeEntityAtIndex(index: Int) {
         entities.removeAtIndex(index)
     }
     
     /**
-     Saves pending changes to the permanent storage
+        Saves pending changes to the permanent storage
      */
     func synchronize() {
         NSKeyedArchiver.archiveRootObject(entities, toFile: databaseFilePath)

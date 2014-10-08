@@ -12,7 +12,7 @@ import UIKit
 private let buttonWide = 44
 
 /**
- Color buttons control. Manages a strip of five circular buttons, each one represent a color supported by the app.
+    Color buttons control. Manages a strip of five circular buttons, each one represent a color supported by the app.
  */
 class ColorButtonsControl : UIControl
 {
@@ -50,7 +50,7 @@ class ColorButtonsControl : UIControl
         
         for button in buttons {
             button.borderWidth = 2
-            button.normalColor = StatusEntityColor.fromRaw(index)!.color()
+            button.normalColor = StatusEntityColor(rawValue: index)!.color()
             button.tag = index
             button.addTarget(self, action: "buttonTapped:", forControlEvents: .TouchUpInside)
             
@@ -65,7 +65,7 @@ class ColorButtonsControl : UIControl
     // MARK: - UIView
     
     /**     
-     Layout the buttons leaving equal horizontal spacing between buttons and between buttons and containing view.
+        Layout the buttons leaving equal horizontal spacing between buttons and between buttons and containing view.
      */
     override func layoutSubviews() {
         let availableWidth = bounds.size.width
@@ -87,11 +87,11 @@ class ColorButtonsControl : UIControl
     // MARK: - Actions
     
     /**
-    Called when user taps on a button. The button is marked as selected, the current color property is updated and an event is raised to notify the containing view controller that content has changed.
+        Called when user taps on a button. The button is marked as selected, the current color property is updated and an event is raised to notify the containing view controller that content has changed.
     */
     @objc private func buttonTapped(sender : CircularButton) {
         selectCurrentButton(sender)
-        currentColor = StatusEntityColor.fromRaw(sender.tag)!
+        currentColor = StatusEntityColor(rawValue: sender.tag)!
         sendActionsForControlEvents(.ValueChanged);
     }
     
@@ -99,8 +99,9 @@ class ColorButtonsControl : UIControl
     // MARK: - Privates
     
     /**
-    Update appearance of selected button darkening the border color.
-    :param: sender the `CircularButton` to mark as selected
+        Update appearance of selected button darkening the border color.
+    
+        :param: sender the `CircularButton` to mark as selected
     */
     private func selectCurrentButton(sender: CircularButton) {
         for button in buttons {

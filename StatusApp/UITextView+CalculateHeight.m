@@ -17,7 +17,7 @@
 {
     // The padding added around the text on iOS6 and iOS7 is different.
     //CGSize fudgeFactor = CGSizeMake(10.0, 16.0);
-    CGSize fudgeFactor = CGSizeMake(6.0, 18.0);
+    CGSize fudgeFactor = CGSizeMake(6.0, 19.0);
     
     CGRect frame = self.bounds;
     frame.size.height -= fudgeFactor.height;
@@ -48,11 +48,6 @@
                                               context: nil];
     
     CGFloat height = CGRectGetHeight(size) + fudgeFactor.height;
-    
-    /*
-    NSLog(@"self.bounds: %@", NSStringFromCGRect(self.bounds));
-    NSLog(@"calculatedHeight: %3.f", height);
-     */
     
     return height;
 }

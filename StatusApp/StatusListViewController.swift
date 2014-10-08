@@ -9,7 +9,7 @@
 import UIKit
 
 /**
- Status Main View Controller
+    Status Main View Controller
  */
 class StatusListViewController: UITableViewController, UIViewControllerTransitioningDelegate {
     /// entity database reference
@@ -49,7 +49,7 @@ class StatusListViewController: UITableViewController, UIViewControllerTransitio
     // MARK: - Actions
 
     /**
-     Add button was tapped
+        Add button was tapped
      */
     @IBAction func addButtonTapped(sender: AnyObject) {
         performSegueWithIdentifier("showDetail", sender: sender)
@@ -82,6 +82,7 @@ class StatusListViewController: UITableViewController, UIViewControllerTransitio
     }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
         //
         // delete the entry
         //
@@ -133,8 +134,7 @@ class StatusListViewController: UITableViewController, UIViewControllerTransitio
     // MARK - Privates
     
     /**
-     Update the currentDataSource property with correct data source (normal or empty). If the data source
-     changed, reload the table view data to update the display.
+        Update the currentDataSource property with correct data source (normal or empty). If the data source changed, reload the table view data to update the display.
      */
     private func determineCurrentDataSource() {
         let newDataSource : UITableViewDataSource = entityDatabase.entities.count == 0 ? emptyDataSource : normalDataSource
@@ -150,7 +150,7 @@ class StatusListViewController: UITableViewController, UIViewControllerTransitio
 // MARK: - EmtpyStatusListDataSource
 
 /**
-`UITableViewDataSource` that provide placeholder content and an Add button (empty state)
+    `UITableViewDataSource` that provide placeholder content and an Add button (empty state)
 */
 class EmtpyStatusListDataSource : NSObject, UITableViewDataSource
 {
@@ -170,7 +170,7 @@ class EmtpyStatusListDataSource : NSObject, UITableViewDataSource
 // MARK: - NormalStatusListDataSource
 
 /**
- `UITableViewDataSource` that provide access to the contents of the `StatusEntityDatabase` and an Add button.
+    `UITableViewDataSource` that provide access to the contents of the `StatusEntityDatabase` and an Add button.
  */
 class NormalStatusListDataSource : NSObject, UITableViewDataSource
 {
@@ -202,7 +202,7 @@ class NormalStatusListDataSource : NSObject, UITableViewDataSource
 // MARK: - NSIndexPath utility extension
 
 /**
- Utility extension
+    Utility extension that implements some functions to determine if an NSIndexPath pertain to an entity row or it represents the add entity row.
  */
 extension NSIndexPath {
     

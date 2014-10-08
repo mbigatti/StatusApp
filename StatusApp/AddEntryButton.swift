@@ -9,7 +9,7 @@
 import UIKit
 
 /**
- Add Entry Button
+    Add Entry Button
  */
 @IBDesignable class AddEntryButton : UIButton
 {
@@ -33,7 +33,7 @@ import UIKit
     }
     
     /**
-     Draws the button icon, composed by an external circle and a plus button.
+        Draws the button icon, composed by an external circle and a plus button.
      */
     override func drawRect(rect: CGRect) {
         

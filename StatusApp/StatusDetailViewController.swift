@@ -10,7 +10,7 @@ import UIKit
 import QuartzCore
 
 /**
- Status Detail View Controller
+    Status Detail View Controller
  */
 class StatusDetailViewController : UIViewController {
     
@@ -37,16 +37,28 @@ class StatusDetailViewController : UIViewController {
     /// reference to the notes text view height constraint, used to implement auto-growth
     @IBOutlet weak var notesTextViewHeightConstraint: NSLayoutConstraint!
     
+    /// layer used to animate background color
+    private var colorLayer = CALayer()
+    
     /// current view translation on y axis
     private var currentTranslationY : CGFloat = 0
     
     /// keyboard frame
     private var keyboardEndFrame : CGRect?
+
     
     // MARK: - UIViewController
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.view.layer.insertSublayer(colorLayer, atIndex: 0)
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        colorLayer.frame = self.view.layer.bounds
         
         registerNotifications()
         
@@ -58,7 +70,6 @@ class StatusDetailViewController : UIViewController {
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-
         hideKeyboard()
     }
 
@@ -70,9 +81,15 @@ class StatusDetailViewController : UIViewController {
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
+    
+    override func layoutSublayersOfLayer(layer: CALayer!) {
+        if layer === self.view.layer {
+            colorLayer.frame = layer.bounds
+        }
+    }
 
     /** 
-     This is required when editing existing items, to size the text view correctly. It is also called on rotation, but the height change is already correct by the viewWillTransitionToSize animation.
+        This is required when editing existing items, to size the text view correctly. It is also called on rotation, but the height change is already correct by the viewWillTransitionToSize animation.
      */
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -80,7 +97,7 @@ class StatusDetailViewController : UIViewController {
     }
     
     /**
-     Manage rotations adjusting notes text view height
+        Manage rotations adjusting notes text view height
      */
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
@@ -198,7 +215,7 @@ class StatusDetailViewController : UIViewController {
     }
     
     /**
-     Called when the keyboard is hidden. In this case animate back in position the view if it is required
+        Called when the keyboard is hidden. In this case animate back in position the view if it is required
      */
     func keyboardWillHide(notification : NSNotification) {
         keyboardEndFrame = nil
@@ -216,8 +233,7 @@ class StatusDetailViewController : UIViewController {
     // MARK: - Privates
     
     /**
-     Updates UI populating the text fields with current entity data and configuring the view background color.
-     If we're inserting a new entity, defaults to the `AZURE` background color.
+        Updates UI populating the text fields with current entity data and configuring the view background color. If we're inserting a new entity, defaults to AZURE background color.
      */
     private func updateUI() {
         if let entity = currentStatusEntity {
@@ -225,24 +241,24 @@ class StatusDetailViewController : UIViewController {
             notesTextView.text = entity.notes
             notesTextView.sizeToFit()
             colorButtonsControl.currentColor = entity.color
-            view.backgroundColor = entity.color.color()
+            colorLayer.backgroundColor = entity.color.color().CGColor
             
         } else {
-            view.backgroundColor = StatusEntityColor.AZURE.color()
+            colorLayer.backgroundColor = StatusEntityColor.AZURE.color().CGColor
         }
         
         updateActiveColor()
     }
     
     /**
-     Updates notes text view height (auto-grown)
+        Updates notes text view height (auto-grown)
      */
     private func adjustTextViewHeight() {
         notesTextViewHeightConstraint.constant = notesTextView.calculatedHeight
     }
     
     /**
-     Validate the form and update the Done button `enabled` state. The form is considered valid if the title contains at least one character and it is not a whitespace or newline character.
+        Validate the form and update the Done button `enabled` state. The form is considered valid if the title contains at least one character and it is not a whitespace or newline character.
      */
     private func validateForm() {
         if let textView = titleTextView {
@@ -254,7 +270,7 @@ class StatusDetailViewController : UIViewController {
     }
     
     /**
-     Hide the keybaord (if present), resigning first responder on both input text views.
+        Hide the keybaord (if present), resigning first responder on both input text views.
      */
     private func hideKeyboard() {
         titleTextView.resignFirstResponder()
@@ -262,7 +278,7 @@ class StatusDetailViewController : UIViewController {
     }
     
     /**
-     Update form active color. This is a color that contrasts with the view background color and it is used to highligth the current text field.
+        Update form active color. This is a color that contrasts with the view background color and it is used to highligth the current text field.
      */
     private func updateActiveColor() {
         var activeColor : StatusEntityColor
@@ -271,7 +287,7 @@ class StatusDetailViewController : UIViewController {
         case .AZURE:
             activeColor = .MAGENTA
         case .GREEN:
-            activeColor = .MAGENTA
+            activeColor = .RED
         case .YELLOW:
             activeColor = .RED
         case .RED:
@@ -285,27 +301,15 @@ class StatusDetailViewController : UIViewController {
     }
     
     /**
-     Animate the change of the view background color to the current color in the `ColorButtonsControl` control.
+        Animate the change of the view background color to the current color in the `ColorButtonsControl` control.
      */
     private func changeBackgroundColor() {
-        let animation = CABasicAnimation(keyPath: "backgroundColor")
+        CATransaction.begin()
+        CATransaction.setAnimationDuration(0.35)
         
-        animation.duration = 0.35
-        animation.toValue = colorButtonsControl.currentColor.color().CGColor
-        animation.removedOnCompletion = false
-        animation.delegate = self
+        colorLayer.backgroundColor = colorButtonsControl.currentColor.color().CGColor
         
-        self.view.layer.addAnimation(animation, forKey: "fadeAnimation")
-    }
-    
-    
-    // MARK : - CAAnimation Delegate
-    
-    /// callback method sticks the view background color after the end of the animation
-    override func animationDidStop(anim: CAAnimation!, finished flag: Bool) {
-        if flag {
-            self.view.backgroundColor = colorButtonsControl.currentColor.color()
-        }
+        CATransaction.commit()
     }
     
 }

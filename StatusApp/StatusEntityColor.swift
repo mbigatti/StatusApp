@@ -9,7 +9,7 @@
 import UIKit
 
 /**
- Colors supported by the app
+    Colors supported by the app
  */
 enum StatusEntityColor : Int {
     case AZURE
@@ -21,14 +21,14 @@ enum StatusEntityColor : Int {
     /// array of supported colors
     static let colors = [
         RED:        UIColor.colorWithRGB(0xE86751),
-        AZURE:      UIColor.colorWithRGB(0x3AEBFF),
-        GREEN:      UIColor.colorWithRGB(0x82E83F),
+        AZURE:      UIColor.colorWithRGB(0x34D4E5),     // 3AEBFF
+        GREEN:      UIColor.colorWithRGB(0x72CC37),     // 82E83F
         YELLOW:     UIColor.colorWithRGB(0xFFC43B),
         MAGENTA:    UIColor.colorWithRGB(0xCA5FFF),
     ]
     
     /**
-     :returns: `UIColor` associated to this color
+        :returns: `UIColor` associated to this color
     */
     func color() -> UIColor {
         if let color = StatusEntityColor.colors[self] {

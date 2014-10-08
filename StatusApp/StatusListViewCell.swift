@@ -9,7 +9,7 @@
 import UIKit
 
 /**
- Status Entry cell
+    Status Entry cell
  */
 class StatusListViewCell: UITableViewCell {
     
@@ -43,13 +43,14 @@ class StatusListViewCell: UITableViewCell {
         dateFormatter.locale = currentLocale
         
         contentView.backgroundColor = UIColor.clearColor()
-        backgroundView = GradientView()
-        selectedBackgroundView = GradientView()
+        backgroundView = GradientView(breakpoint: 0.75, darkeningPercentage: 0.05)
+        selectedBackgroundView = GradientView(breakpoint: 0.75, darkeningPercentage: 0.05)
     }
     
     /**
-     Configure the cell for the specified entry.
-     :param: statsEntry entry to use to configure the cell
+        Configure the cell for the specified entry.
+    
+        :param: statsEntry entry to use to configure the cell
      */
     func configureForStatusEntity(statusEntity: StatusEntity) {
         titleLabel!.text = statusEntity.title

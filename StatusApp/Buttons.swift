@@ -3,40 +3,38 @@
 //  BMXFlatButton
 //  https://github.com/mbigatti/BMXFlatButton
 //
-//  Created by Massimiliano Bigatti on 06/07/14.
 //  Copyright (c) 2014 Massimiliano Bigatti. All rights reserved.
 //
 
 import UIKit
 
+/**
+    Abstract base class for CircularButton and FlatButton.
+ */
 @IBDesignable public class AbstractButton: UIButton {
     
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required public init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
+    /// button normal background color, default to clear
     @IBInspectable public var normalColor : UIColor = UIColor.clearColor() {
     didSet {
         updateButtonColor()
     }
     }
     
+    /// button highlighted background color. If not specified use the normal background color darkened of 0.2%
     @IBInspectable public var highlightedColor : UIColor? {
     didSet {
         updateButtonColor()
     }
     }
     
+    /// button border width, defaults to 0
     @IBInspectable public var borderWidth: CGFloat = 0 {
     didSet {
         layer.borderWidth = borderWidth
     }
     }
     
+    /// button border color, defaults to clear
     @IBInspectable public var borderColor: UIColor = UIColor.clearColor() {
     didSet {
         layer.borderColor = borderColor.CGColor
@@ -49,6 +47,17 @@ import UIKit
     }
     }
     
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    public required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    /**
+        Update the button background color based on the highlighted state
+     */
     func updateButtonColor() {
         if highlighted {
             if (highlightedColor != nil) {
@@ -62,16 +71,20 @@ import UIKit
     }
 }
 
+/**
+    Simple flat button, with adjustable corner radius
+ */
 @IBDesignable public class FlatButton: AbstractButton {
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
     }
     
-    required public init(coder aDecoder: NSCoder) {
+    public required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
+    /// button corner radius, defaults to 2px
     @IBInspectable public var cornerRadius : CGFloat = 2 {
     didSet {
         self.layer.cornerRadius = cornerRadius
@@ -80,13 +93,16 @@ import UIKit
     
 }
 
+/**
+    Simple circular button. For correct appearance it is required to have a square size.
+ */
 @IBDesignable public class CircularButton: AbstractButton {
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
     }
     
-    required public init(coder aDecoder: NSCoder) {
+    public required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     

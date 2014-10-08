@@ -10,7 +10,7 @@ import UIKit
 import QuartzCore
 
 /**
- Controls that embeds an UITextView and supports highlighting and auto-growth
+    Controls that embeds an UITextView and supports highlighting and auto-growth
  */
 class UnderlinedTextView : UIControl, UITextViewDelegate
 {

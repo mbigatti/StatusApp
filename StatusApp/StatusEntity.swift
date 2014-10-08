@@ -9,11 +9,11 @@
 import Foundation
 
 /**
-Entry entity. Each entry is defined by:
-- a title
-- free text note
-- a color
-- last updated date
+    Entry entity. Each entry is defined by:
+    - a title
+    - free text note
+    - a color
+    - last updated date
  */
 class StatusEntity : NSObject, NSCoding
 {
@@ -43,20 +43,21 @@ class StatusEntity : NSObject, NSCoding
     private(set) var lastUpdateDate : NSDate
     
     /**
-     Inits an entry (required by `NSKeyedUnarchiver`)
-    :param: coder an `NSCoder` object
+         Inits an entry (required by `NSKeyedUnarchiver`)
+    
+        :param: coder an `NSCoder` object
     */
     required init(coder aDecoder: NSCoder) {
         title = aDecoder.decodeObjectForKey("title") as String
         notes = aDecoder.decodeObjectForKey("notes") as String
         lastUpdateDate = aDecoder.decodeObjectForKey("lastUpdateDate") as NSDate
-        color = StatusEntityColor.fromRaw(aDecoder.decodeObjectForKey("color") as NSInteger)!
+        color = StatusEntityColor(rawValue: aDecoder.decodeObjectForKey("color") as NSInteger)!
     }
     
     init(title: String, notes: String, color: StatusEntityColor) {
         self.title = title
         self.notes = notes
-        self.lastUpdateDate = NSDate.date()
+        self.lastUpdateDate = NSDate()
         self.color = color
     }
     
@@ -64,6 +65,6 @@ class StatusEntity : NSObject, NSCoding
         aCoder.encodeObject(title, forKey: "title")
         aCoder.encodeObject(notes, forKey: "notes")
         aCoder.encodeObject(lastUpdateDate, forKey: "lastUpdateDate")
-        aCoder.encodeObject(color.toRaw(), forKey: "color")
+        aCoder.encodeObject(color.rawValue, forKey: "color")
     }
 }
