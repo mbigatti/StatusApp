@@ -52,9 +52,7 @@ class StatusEntityDatabase {
      */
     func addEntity(entity: StatusEntity) {
         entities.append(entity)
-        entities = entities.sorted({
-            $0.title < $1.title
-        })
+        refresh()
     }
     
     /**
@@ -71,5 +69,14 @@ class StatusEntityDatabase {
      */
     func synchronize() {
         NSKeyedArchiver.archiveRootObject(entities, toFile: databaseFilePath)
+        
+        // resort entities in case something was changed
+        refresh()
+    }
+    
+    private func refresh() {
+        entities = entities.sorted({
+            $0.title < $1.title
+        })
     }
 }
