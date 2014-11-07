@@ -1,6 +1,6 @@
 # StatusApp
 
-![icon](http://cl.ly/image/1R3z0z1Y2l2D/download/StatusAppIcon.png)
+![icon](http://cl.ly/YQ81/Icon-Small-40@3x.png)
 
 This is a complete Swift project for a status tracking App for educational purposes. It can manage a list of entries. Each entry contains a title, notes and last edit date. User can also choose the entry color. The entry row adjust height to accomodate all the notes text.
 
