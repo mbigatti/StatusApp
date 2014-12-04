@@ -44,7 +44,8 @@ class StatusListViewCell: UITableViewCell {
         
         contentView.backgroundColor = UIColor.clearColor()
         backgroundView = GradientView(breakpoint: 0.75, darkeningPercentage: 0.05)
-        selectedBackgroundView = GradientView(breakpoint: 0.75, darkeningPercentage: 0.05)
+        //backgroundView = UIView()
+        //selectedBackgroundView = GradientView(breakpoint: 0.75, darkeningPercentage: 0.05)
     }
     
     /**

@@ -39,10 +39,10 @@ import UIKit
         self.gradientBreakpoint = breakpoint
         self.gradientDarkeningPercentage = darkeningPercentage
     }
-    
+
     public override func drawRect(rect: CGRect)
     {
-        let context = UIGraphicsGetCurrentContext();
+        let context = UIGraphicsGetCurrentContext()
         
         let colorspace = CGColorSpaceCreateDeviceRGB();
         let color = self.backgroundColor!.darkerColor(gradientDarkeningPercentage).CGColor
@@ -54,6 +54,6 @@ import UIKit
         let startPoint = CGPoint(x: 0, y: 0)
         let endPoint = CGPoint(x: 0, y: self.bounds.height)
 
-        CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, 0);
+        CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, 0)
     }
 }
