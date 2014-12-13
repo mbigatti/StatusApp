@@ -8,6 +8,7 @@
 
 import UIKit
 import QuartzCore
+import CloudKit
 
 /**
     Status Detail View Controller
@@ -175,16 +176,28 @@ class StatusDetailViewController : UIViewController {
             entity.notes = notesTextView.text
             entity.color = colorButtonsControl.currentColor
             
+            //
+            // sync with cloud
+            //
+            CloudSupport.updateRecord(entity)
+            
+            
         } else {
             //
             // create a new entity
             //
             let entity = StatusEntity(title: titleTextView.text, notes: notesTextView.text, color: colorButtonsControl.currentColor)
             entityDatabase.addEntity(entity)
+            
+            //
+            // sync with cloud
+            //
+            CloudSupport.createRecord(entity)
         }
         
         // save data in the archive file
         entityDatabase.synchronize()
+
         
         // dismiss controller
         dismissViewControllerAnimated(true, completion: nil)

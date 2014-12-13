@@ -42,6 +42,8 @@ class StatusEntity : NSObject, NSCoding
     /// readonly last updated timestamp
     private(set) var lastUpdateDate : NSDate
     
+    var uuid: String?
+    
     /**
          Inits an entry (required by `NSKeyedUnarchiver`)
     
@@ -52,6 +54,7 @@ class StatusEntity : NSObject, NSCoding
         notes = aDecoder.decodeObjectForKey("notes") as String
         lastUpdateDate = aDecoder.decodeObjectForKey("lastUpdateDate") as NSDate
         color = StatusEntityColor(rawValue: aDecoder.decodeObjectForKey("color") as NSInteger)!
+        uuid = aDecoder.decodeObjectForKey("uuid") as? String
     }
     
     init(title: String, notes: String, color: StatusEntityColor) {
@@ -66,5 +69,6 @@ class StatusEntity : NSObject, NSCoding
         aCoder.encodeObject(notes, forKey: "notes")
         aCoder.encodeObject(lastUpdateDate, forKey: "lastUpdateDate")
         aCoder.encodeObject(color.rawValue, forKey: "color")
+        aCoder.encodeObject(uuid, forKey: "uuid")
     }
 }
