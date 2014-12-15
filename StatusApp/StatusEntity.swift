@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CloudKit
 
 /**
     Entry entity. Each entry is defined by:
@@ -64,11 +65,36 @@ class StatusEntity : NSObject, NSCoding
         self.color = color
     }
     
+    init(record: CKRecord) {
+        self.title = record.objectForKey("title") as String
+        self.notes = record.objectForKey("notes") as String
+        self.lastUpdateDate = record.objectForKey("lastUpdateDate") as NSDate
+        self.color = StatusEntityColor(rawValue: record.objectForKey("colorInt") as Int)!
+        self.uuid = record.recordID.recordName
+    }
+    
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(title, forKey: "title")
         aCoder.encodeObject(notes, forKey: "notes")
         aCoder.encodeObject(lastUpdateDate, forKey: "lastUpdateDate")
         aCoder.encodeObject(color.rawValue, forKey: "color")
         aCoder.encodeObject(uuid, forKey: "uuid")
+    }
+    
+    func toRecord() -> CKRecord {
+        var record : CKRecord?
+        
+        if uuid == nil {
+            record = CKRecord(recordType: "StatusEntity")
+        } else {
+            let recordID = CKRecordID(recordName: uuid)
+            record = CKRecord(recordType: "StatusEntity", recordID: recordID)
+        }
+        record!.setObject(title, forKey: "title")
+        record!.setObject(notes, forKey: "notes")
+        record!.setObject(color.rawValue, forKey: "colorInt")
+        record!.setObject(lastUpdateDate, forKey: "lastUpdateDate")
+        
+        return record!
     }
 }

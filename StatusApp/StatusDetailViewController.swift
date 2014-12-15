@@ -179,7 +179,7 @@ class StatusDetailViewController : UIViewController {
             //
             // sync with cloud
             //
-            CloudSupport.updateRecord(entity)
+            CloudSynchronizer.sharedInstance.updateRecord(entity)
             
             
         } else {
@@ -192,7 +192,7 @@ class StatusDetailViewController : UIViewController {
             //
             // sync with cloud
             //
-            CloudSupport.createRecord(entity)
+            CloudSynchronizer.sharedInstance.createRecord(entity)
         }
         
         // save data in the archive file

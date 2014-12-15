@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5021FC2F1A3CBD7900430293 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5021FC2E1A3CBD7900430293 /* CloudKit.framework */; };
-		5021FC311A3CD47A00430293 /* CloudSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5021FC301A3CD47A00430293 /* CloudSupport.swift */; };
+		5021FC311A3CD47A00430293 /* CloudSynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5021FC301A3CD47A00430293 /* CloudSynchronizer.swift */; };
 		504239EE19D2B53D00EB55AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504239ED19D2B53D00EB55AF /* AppDelegate.swift */; };
 		504239F319D2B53D00EB55AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504239F119D2B53D00EB55AF /* Main.storyboard */; };
 		504239F519D2B53D00EB55AF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 504239F419D2B53D00EB55AF /* Images.xcassets */; };
@@ -44,7 +44,7 @@
 /* Begin PBXFileReference section */
 		5021FC2D1A3CBD6600430293 /* StatusApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = StatusApp.entitlements; sourceTree = "<group>"; };
 		5021FC2E1A3CBD7900430293 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
-		5021FC301A3CD47A00430293 /* CloudSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudSupport.swift; sourceTree = "<group>"; };
+		5021FC301A3CD47A00430293 /* CloudSynchronizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudSynchronizer.swift; sourceTree = "<group>"; };
 		504239E819D2B53D00EB55AF /* StatusApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StatusApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		504239EC19D2B53D00EB55AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		504239ED19D2B53D00EB55AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -117,7 +117,7 @@
 			children = (
 				504239ED19D2B53D00EB55AF /* AppDelegate.swift */,
 				5086FAB619D946670044A599 /* Categories */,
-				5021FC301A3CD47A00430293 /* CloudSupport.swift */,
+				5021FC301A3CD47A00430293 /* CloudSynchronizer.swift */,
 				504239F419D2B53D00EB55AF /* Images.xcassets */,
 				504239F619D2B53D00EB55AF /* LaunchScreen.xib */,
 				504239F119D2B53D00EB55AF /* Main.storyboard */,
@@ -308,7 +308,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5086FAA219D41F030044A599 /* Buttons.swift in Sources */,
-				5021FC311A3CD47A00430293 /* CloudSupport.swift in Sources */,
+				5021FC311A3CD47A00430293 /* CloudSynchronizer.swift in Sources */,
 				5086FA9819D318540044A599 /* StatusDetailViewController.swift in Sources */,
 				5086FA9B19D31D4C0044A599 /* UIColor+RGB.swift in Sources */,
 				5086FAA619D450AA0044A599 /* ColorButtonsControl.swift in Sources */,

@@ -41,8 +41,15 @@ class StatusListViewController: UITableViewController, UIViewControllerTransitio
         
         determineCurrentDataSource()
         
+        // register listener
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "statusAppDidUpdateFromCloud:", name: StatusAppDidUpdateFromCloud, object: nil)
+        
         // required to correctly size cells when exit segue from detail view
         tableView.reloadData()
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: StatusAppDidUpdateFromCloud, object: nil)
     }
     
     
@@ -87,6 +94,8 @@ class StatusListViewController: UITableViewController, UIViewControllerTransitio
         // delete the entry
         //
         if editingStyle == .Delete {
+            let uuid = entityDatabase.entities[indexPath.row].uuid
+            
             entityDatabase.removeEntityAtIndex(indexPath.row)
             entityDatabase.synchronize()
           
@@ -95,6 +104,11 @@ class StatusListViewController: UITableViewController, UIViewControllerTransitio
             
             // update current data source
             determineCurrentDataSource()
+            
+            // delete element from iCloud
+            if let uuid = uuid {
+                CloudSynchronizer.sharedInstance.deleteRecordWithUUID(uuid)
+            }
         }
     }
     
@@ -131,7 +145,23 @@ class StatusListViewController: UITableViewController, UIViewControllerTransitio
     }
     
     
-    // MARK - Privates
+    // MARK: - Notifications
+    
+    /**
+    Receive notification when iCloud sync ends
+    */
+    func statusAppDidUpdateFromCloud(notification : NSNotification) {
+        println("Refreshing data")
+        determineCurrentDataSource()
+        self.tableView.reloadData()
+        
+        // after receiving updating notification for the sync operation
+        // disable notifications for future single CRUD operations
+        cloudStatus.postNotifications = false
+    }
+    
+    
+    // MARK: - Privates
     
     /**
         Update the currentDataSource property with correct data source (normal or empty). If the data source changed, reload the table view data to update the display.

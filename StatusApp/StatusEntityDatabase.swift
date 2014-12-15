@@ -17,7 +17,7 @@ class StatusEntityDatabase {
     /// singleton
     class var sharedInstance : StatusEntityDatabase {
         struct Static {
-            static let instance : StatusEntityDatabase = StatusEntityDatabase()
+            static let instance = StatusEntityDatabase()
         }
         return Static.instance
     }
