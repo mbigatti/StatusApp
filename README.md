@@ -26,6 +26,7 @@ Brief list of technologies and API used in the source code:
 - custom auto-growing `UITextView` for data entry
 - view background color fading with Core Animation
 - `NSKeyedArchiver` and `NSKeyedUnarchiver`
+- iCloud support using CloudKit API
 - mix and match with Objective-C code
 
 ### Contact
